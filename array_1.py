@@ -86,3 +86,31 @@ nums = [2, 7, 11, 14]
 target = 9
 solution = Solution()
 print(solution.twoSum(nums, target))
+
+#Missing numbers less than the number in the list
+
+def smallerNumbersThanCurrent(self, nums: List[int]) -> List[int]:
+        temp = sorted(nums)
+        d ={}
+        for i,n in enumerate(temp):
+            if n not in d:
+                d[n] = i
+        ret = []
+        for i in nums:
+            ret.append(d[i])
+
+        return ret
+
+#Minimum number of points to visit all the points
+points = [[1,1],[3,4],[-1,0]]
+ret = 0
+x1, y1 = points.pop()  #removes last element
+while points:
+    x2, y2 = points.pop()
+    print(x2,y2)
+    ret += max(abs(y2-y1),abs(x2-x1))
+    print(ret)
+    x1, y1 = x2, y2
+    print(x1,y1)
+print(ret)
+        
