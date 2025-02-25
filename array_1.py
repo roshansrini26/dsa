@@ -1,5 +1,5 @@
 #Contains duplicate values
-from typing import List
+from typing import Counter, List
 
 class Solution:
     def containsDuplicate(self, nums: List[int]) -> bool:
@@ -272,4 +272,61 @@ class Solution:
                 res.append(num)
                 count_map[num] -= 1
         return res
+
+#add binary
+
+class Solution:
+    def addBinary(self, a: str, b: str) -> str:
+        return bin(int(a,2) + int(b,2))[2::] # bin will return 0b100 so slice [2::]
+
+sol = Solution()
+res = sol.addBinary("1101","1100")
+print(int(res,2))
+
+# Generate parnathesis
+
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        res = []
+        sol = []
+        def backtrack(open, close):
+            if len(sol) == 2*n:
+                res.append(''.join(sol))
+
+            if open < n:
+                sol.append('(')
+                backtrack(open + 1, close)
+                sol.pop()
+
+            if open > close:
+                sol.append(')')
+                backtrack(open, close + 1)
+                sol.pop()
+
+        backtrack(0,0)
+        return res
+
+#valid anagram in a string
+
+class Solution:
+    def findAnagrams(self, s: str, p: str) -> List[int]:
+        p_count = Counter(p)  #counter to p
+        s_count = Counter(s[:len(p)-1]) #counter to s with 1 less than element
+
+        res = []
+
+        for i in range(len(p)-1,len(s)):
+            s_count[s[i]] += 1  # add the coming element to s_count
+
+            if s_count == p_count:  #check both is same values append to result
+                res.append(i-len(p)+1)
+
+            s_count[s[i-len(p)+1]] -= 1  #remove the count for the left most index in s_count
+            if s_count[s[i-len(p)+1]] == 0:  #if the value of the element is zero delete the element
+                del s_count[s[i-len(p)+1]]
+        return res
+
+sol = Solution()
+print(sol.findAnagrams("cbaebabacd", "abc"))
+print(sol.findAnagrams("abab", "ab"))
 
