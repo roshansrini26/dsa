@@ -171,6 +171,21 @@ for char in reversed(s):
 
 print(total)
 
+#Intger to roman
+
+def intToRoman(self, num: int) -> str:
+        roman_map = [(1000, "M"), (900, "CM"), (500, "D"), (400, "CD"),
+        (100, "C"), (90, "XC"), (50, "L"), (40, "XL"),
+        (10, "X"), (9, "IX"), (5, "V"), (4, "IV"), (1, "I")]
+
+        res = ""
+
+        for val, symbol in roman_map:
+            while num >= val:
+                res += symbol
+                num -= val
+        return res 
+
 #ISOMORPHIC Strings
 
 def isIsomorphic(s: str, t: str) -> bool:
@@ -330,3 +345,22 @@ sol = Solution()
 print(sol.findAnagrams("cbaebabacd", "abc"))
 print(sol.findAnagrams("abab", "ab"))
 
+#find sqrt without built in function
+
+class Solution: #binary search
+    def mySqrt(self, x: int) -> int:
+        if x == 0 or x ==1:
+            return x
+        left = 0
+        right = x
+        ans = 0
+        while left <= right:
+            mid = (left + right) // 2
+            if mid * mid == x:
+                return mid
+            elif mid * mid < x:
+                ans = mid
+                left = mid + 1
+            else:
+                right = mid - 1
+        return ans
