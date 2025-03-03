@@ -364,3 +364,99 @@ class Solution: #binary search
             else:
                 right = mid - 1
         return ans
+
+#3 sum
+
+class Solution:
+    def threeSum(self, nums: List[int]) -> List[List[int]]:
+        nums.sort()
+        res = []
+
+        for i in range(len(nums)-2):
+            if i>0 and nums[i] == nums[i-1]:
+                continue
+            left = i+1
+            right = len(nums) - 1
+
+            while left < right:
+                total = nums[i] + nums[left] + nums[right]
+
+                if total == 0:
+                    res.append([nums[i],nums[left],nums[right]])
+
+                    while left < right and nums[left] == nums[left + 1]:
+                        left += 1
+                    while left < right and nums[right] == nums[right -1]:
+                        right -= 1
+                    left += 1
+                    right -= 1
+                
+                elif total < 0:
+                    left += 1
+                else:
+                    right -= 1
+                
+        return res
+sol = Solution()
+print(sol.threeSum([-1, 0, 1, 2, -1, -4]))  # Output: [[-1, -1, 2], [-1, 0, 1]]
+
+#4 sum
+class Solution:
+    def fourSum(self, nums: List[int], target: int) -> List[List[int]]:
+        nums.sort()
+        res = []
+
+        for i in range(len(nums) - 3):
+            if i>0 and nums[i] == nums[i-1]:
+                continue
+            for j in range(i+1,len(nums)-2):
+                if j>i+1 and nums[j] == nums[j-1]:
+                    continue
+                left = j+1
+                right = len(nums)-1
+                while left < right:
+                    total = nums[i] + nums[j] + nums[left] + nums[right]
+
+                    if total == target:
+                        res.append([nums[i],nums[j],nums[left],nums[right]])
+
+                        while left < right and nums[left] == nums[left +1]:
+                            left += 1
+                        while left < right and nums[right] == nums[right - 1]:
+                            right -= 1
+                        
+                        left += 1
+                        right -= 1
+                    
+                    elif total < target:
+                        left += 1
+                    else:
+                        right -= 1
+        return res
+    
+sol = Solution()
+print(sol.fourSum([1, 0, -1, 0, -2, 2], 0))  # Output: [[-2, -1, 1, 2], [-2, 0, 0, 2], [-1, 0, 0, 1]]
+
+# reverse an integer
+
+class Solution:
+    def reverse(self, x: int) -> int:
+        INT_MIN , INT_MAX = -2**31, 2**31 - 1
+        reverse = 0
+        sign = -1 if x < 0 else 1
+        x = abs(x)
+
+        while x!=0:
+            digit = x % 10
+            x //= 10
+            
+            if reverse > (INT_MAX - digit) // 10:
+                return 0
+
+            reverse = reverse*10 + digit
+
+        return sign*reverse
+    
+sol = Solution()
+print(sol.reverse(123))  # Output: 321
+
