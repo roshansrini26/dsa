@@ -321,29 +321,7 @@ class Solution:
         backtrack(0,0)
         return res
 
-#valid anagram in a string
 
-class Solution:
-    def findAnagrams(self, s: str, p: str) -> List[int]:
-        p_count = Counter(p)  #counter to p
-        s_count = Counter(s[:len(p)-1]) #counter to s with 1 less than element
-
-        res = []
-
-        for i in range(len(p)-1,len(s)):
-            s_count[s[i]] += 1  # add the coming element to s_count
-
-            if s_count == p_count:  #check both is same values append to result
-                res.append(i-len(p)+1)
-
-            s_count[s[i-len(p)+1]] -= 1  #remove the count for the left most index in s_count
-            if s_count[s[i-len(p)+1]] == 0:  #if the value of the element is zero delete the element
-                del s_count[s[i-len(p)+1]]
-        return res
-
-sol = Solution()
-print(sol.findAnagrams("cbaebabacd", "abc"))
-print(sol.findAnagrams("abab", "ab"))
 
 #find sqrt without built in function
 
@@ -458,5 +436,5 @@ class Solution:
         return sign*reverse
     
 sol = Solution()
-print(sol.reverse(123))  # Output: 321
+print(sol.reverse(-455123))  # Output: 321
 
